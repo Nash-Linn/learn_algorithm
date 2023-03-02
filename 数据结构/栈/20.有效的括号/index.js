@@ -22,24 +22,42 @@
  * @param {string} s
  * @return {boolean}
  */
+// var isValid = function (s) {
+//   var stack = [];
+//   let obj = {
+//     "}": "{",
+//     ")": "(",
+//     "]": "[",
+//   };
+//   // let left = Object.values(obj);
+//   let left = ["{", "(", "["];
+//   for (let i = 0, len = s.length; i < len; i++) {
+//     if (left.includes(s[i])) {
+//       stack.push(s[i]);
+//     } else {
+//       if (obj[s[i]] == stack[stack.length - 1]) {
+//         stack.pop();
+//       } else {
+//         stack.push(s[i]);
+//       }
+//     }
+//   }
+//   return !stack.length;
+// };
+
 var isValid = function (s) {
   var stack = [];
-  let obj = {
-    "}": "{",
-    ")": "(",
-    "]": "[",
-  };
-  // let left = Object.values(obj);
-  let left = ["{", "(", "["];
   for (let i = 0, len = s.length; i < len; i++) {
-    if (left.includes(s[i])) {
-      stack.push(s[i]);
+    let start = s[i];
+    let end = stack[stack.length - 1];
+    if (
+      (start === "}" && end === "{") ||
+      (start === ")" && end === "(") ||
+      (start === "]" && end === "[")
+    ) {
+      stack.pop();
     } else {
-      if (obj[s[i]] == stack[stack.length - 1]) {
-        stack.pop();
-      } else {
-        stack.push(s[i]);
-      }
+      stack.push(s[i]);
     }
   }
   return !stack.length;
